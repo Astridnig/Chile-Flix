@@ -1,10 +1,14 @@
 package com.astridnig.moviesapp.data.remote.model
 
+import com.astridnig.moviesapp.data.remote.model.Constants.BACKDROP_PATH
+import com.astridnig.moviesapp.data.remote.model.Constants.ID
+import com.astridnig.moviesapp.data.remote.model.Constants.NAME
+import com.astridnig.moviesapp.data.remote.model.Constants.POSTER_PATH
 import com.google.gson.annotations.SerializedName
 
 data class BelongsToCollectionApiModel(
-    @SerializedName("id") val id: Int?,
-    @SerializedName("name") val name: String?,
-    @SerializedName("poster_path") val posterPath: String?,
-    @SerializedName("backdrop_path") val backdropPath: String?,
+    @SerializedName(ID) val id: Int?,
+    @SerializedName(NAME) val name: String?,
+    @SerializedName(POSTER_PATH) val posterPath: String?,
+    @SerializedName(BACKDROP_PATH) val backdropPath: String?,
 )
