@@ -1,0 +1,27 @@
+package com.astridnig.moviesapp.presentation.moviedetail.model
+
+import androidx.lifecycle.ViewModel
+import com.astridnig.moviesapp.presentation.core.ViewModelPresentation
+import com.astridnig.moviesapp.presentation.moviedetail.MovieDetailsUiEvent
+import com.astridnig.moviesapp.presentation.moviedetail.MovieDetailsUiState
+import com.astridnig.moviesapp.presentation.repository.MoviesRepository
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+
+class MovieDetailsViewModel(private val repository: MoviesRepository) : ViewModel(),
+    ViewModelPresentation<MovieDetailsUiEvent, MovieDetailsUiState> {
+    private val initialUiState: MovieDetailsUiState = MovieDetailsUiState.LoadingUiState
+    private val uiState = MutableStateFlow(initialUiState)
+
+
+    override fun processUiEvent(uiEvent: MovieDetailsUiEvent) {
+        when (uiEvent) {
+            is MovieDetailsUiEvent.InitialUiEvent -> {
+            }
+        }
+
+    }
+
+    override fun uiState(): StateFlow<MovieDetailsUiState> = uiState.asStateFlow()
+}
