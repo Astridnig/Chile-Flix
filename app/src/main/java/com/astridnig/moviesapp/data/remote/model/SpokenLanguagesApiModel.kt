@@ -8,5 +8,5 @@ import com.google.gson.annotations.SerializedName
 data class SpokenLanguagesApiModel(
     @SerializedName(ENGLISH_NAME) val englishName: String?,
     @SerializedName(ISO_639_1) val iso: String?,
-    @SerializedName(NAME) val name: String
+    @SerializedName(NAME) val name: String?
 )
