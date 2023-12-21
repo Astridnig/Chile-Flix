@@ -11,7 +11,7 @@ import com.astridnig.moviesapp.presentation.movies.model.Movie
 class MoviesAdapter(
     private val context: Context,
     private val movies: List<Movie>,
-    private val onItemClick: (Movie) -> Unit
+    private val onItemClick: (Int) -> Unit
 ) : RecyclerView.Adapter<ItemMoviesViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemMoviesViewHolder {
@@ -28,10 +28,8 @@ class MoviesAdapter(
 
     override fun onBindViewHolder(holder: ItemMoviesViewHolder, position: Int) {
         val movieItem: Movie = movies[position]
-
-        holder.bind(movieItem)
-        {
-            onItemClick.invoke(movieItem)
+        holder.bind(movieItem) {
+            onItemClick.invoke(movieItem.id)
         }
     }
 }
