@@ -4,14 +4,19 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast.LENGTH_SHORT
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.astridnig.moviesapp.databinding.FragmentMoviesBinding
 import com.astridnig.moviesapp.di.PresentationModule.provideMoviesViewModelFactory
 import com.astridnig.moviesapp.presentation.core.UiPresentation
+import com.astridnig.moviesapp.presentation.movies.adapter.MoviesAdapter
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -64,6 +69,19 @@ class MoviesFragment : Fragment(), UiPresentation<MoviesUiState> {
 
             is MoviesUiState.ShowMoviesUiState -> {
                 showLoading(visible = false)
+                context?.let { safeContext ->
+                    val moviesAdapter =
+                        MoviesAdapter(safeContext, uiState.movies.results) { movie ->
+                            binding?.let {
+                                Snackbar.make(it.root, movie.title, LENGTH_SHORT).show()
+                            }
+                        }
+                    binding?.rvMovies?.apply {
+                        adapter = moviesAdapter
+                        layoutManager = LinearLayoutManager(context)
+                        isVisible = true
+                    }
+                }
             }
         }
     }
@@ -74,5 +92,10 @@ class MoviesFragment : Fragment(), UiPresentation<MoviesUiState> {
         } else {
             binding?.progress?.isGone = true
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }
