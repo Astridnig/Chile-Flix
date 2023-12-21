@@ -9,9 +9,11 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.astridnig.moviesapp.databinding.FragmentMoviesBinding
 import com.astridnig.moviesapp.di.PresentationModule.provideMoviesViewModelFactory
 import com.astridnig.moviesapp.presentation.core.UiPresentation
+import com.astridnig.moviesapp.presentation.movies.adapter.MoviesAdapter
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.flow.onEach
 import kotlinx.coroutines.launch
@@ -64,6 +66,19 @@ class MoviesFragment : Fragment(), UiPresentation<MoviesUiState> {
 
             is MoviesUiState.ShowMoviesUiState -> {
                 showLoading(visible = false)
+                context?.let { safeContext ->
+                    val moviesAdapter =
+                        MoviesAdapter(safeContext, uiState.movies.results) { movieId ->
+                            binding?.let {
+
+                            }
+                        }
+                    binding?.rvMovies?.apply {
+                        adapter = moviesAdapter
+                        layoutManager = LinearLayoutManager(context)
+                        isVisible = true
+                    }
+                }
             }
         }
     }
@@ -74,5 +89,10 @@ class MoviesFragment : Fragment(), UiPresentation<MoviesUiState> {
         } else {
             binding?.progress?.isGone = true
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        binding = null
     }
 }
