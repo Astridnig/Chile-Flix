@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">Movies App</string>
     <string name="title_movies">Peliculas</string>
+    <string name="title_movie_detail">Detalle</string>
     <string name="title_note">Nota: </string>
     <string name="title_release">Lanzamiento: </string>
+    <string name="text_previous">Anterior</string>
+    <string name="text_next">Siguiente</string>
+    <string name="message_error">Ups! ocurrió un error, intente mas tarde.</string>
 </resources>

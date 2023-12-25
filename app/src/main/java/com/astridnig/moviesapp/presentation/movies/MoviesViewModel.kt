@@ -22,7 +22,7 @@ class MoviesViewModel(private val repository: MoviesRepository) : ViewModel(),
                 getMovies(page = uiEvent.page)
             }
             is MoviesUiEvent.GetMoviesUiEvent -> {
-
+                getMovies(page = uiEvent.page)
             }
         }
 
