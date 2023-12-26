@@ -65,7 +65,7 @@ class MoviesFragment : Fragment(), UiPresentation<MoviesUiState> {
         when (uiState) {
             is MoviesUiState.ErrorUiState -> {
                 showLoading(visible = false)
-                showError(visible = true)
+                showError(visible = true, pageRetry = uiState.pageRetry)
             }
 
             MoviesUiState.LoadingUiState -> {
@@ -145,7 +145,7 @@ class MoviesFragment : Fragment(), UiPresentation<MoviesUiState> {
                 it.rvMovies.isInvisible = true
                 it.linearError.isVisible = true
                 it.buttonRetry.setOnClickListener {
-                    emitUiEvent(MoviesUiEvent.GetMoviesUiEvent(page = pageRetry))
+                    emitUiEvent(MoviesUiEvent.RetryGetMoviesUiEvent(page = pageRetry))
                 }
             } else {
                 it.linearError.isGone = true
