@@ -63,13 +63,14 @@ class MoviesFragment : Fragment(), UiPresentation<MoviesUiState> {
 
     override fun renderUiStates(uiState: MoviesUiState) {
         when (uiState) {
-            MoviesUiState.ErrorUiState -> {
+            is MoviesUiState.ErrorUiState -> {
                 showLoading(visible = false)
                 showError(visible = true)
             }
 
             MoviesUiState.LoadingUiState -> {
                 showLoading(visible = true)
+                showError(visible = false)
             }
 
             is MoviesUiState.ShowMoviesUiState -> {
@@ -91,6 +92,7 @@ class MoviesFragment : Fragment(), UiPresentation<MoviesUiState> {
                         bundle
                     )
                 }
+            binding?.rvMovies?.isVisible = true
             binding?.rvMovies?.apply {
                 adapter = moviesAdapter
                 layoutManager = LinearLayoutManager(context)
@@ -123,7 +125,6 @@ class MoviesFragment : Fragment(), UiPresentation<MoviesUiState> {
             }
             it.buttonPrev.setOnClickListener {
                 emitUiEvent(MoviesUiEvent.GetMoviesUiEvent(page = movies.page - 1))
-
             }
         }
     }
@@ -138,10 +139,14 @@ class MoviesFragment : Fragment(), UiPresentation<MoviesUiState> {
         }
     }
 
-    private fun showError(visible: Boolean) {
+    private fun showError(visible: Boolean, pageRetry: Int = 1) {
         binding?.let {
             if (visible) {
+                it.rvMovies.isInvisible = true
                 it.linearError.isVisible = true
+                it.buttonRetry.setOnClickListener {
+                    emitUiEvent(MoviesUiEvent.GetMoviesUiEvent(page = pageRetry))
+                }
             } else {
                 it.linearError.isGone = true
             }

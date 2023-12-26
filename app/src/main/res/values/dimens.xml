@@ -9,4 +9,6 @@
     <dimen name="image_height">300dp</dimen>
     <dimen name="image_movie_detail_height">500dp</dimen>
     <dimen name="progress_size">50dp</dimen>
+    <dimen name="item_error_margin_top">16dp</dimen>
+    <dimen name="image_error_size">100dp</dimen>
 </resources>

@@ -52,4 +52,37 @@
         android:layout_height="@dimen/progress_size"
         android:layout_gravity="center"
         android:indeterminate="true" />
+
+    <LinearLayout
+        android:id="@+id/linear_error"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="@dimen/image_error_size"
+            android:layout_height="@dimen/image_error_size"
+            android:src="@drawable/ic_sad" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_error_margin_top"
+            android:text="@string/message_error"
+            android:textSize="@dimen/text_size_large"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/button_retry"
+            style="@style/Widget.AppCompat.Button.Colored"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/item_error_margin_top"
+            android:text="@string/retry"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_size_medium" />
+
+    </LinearLayout>
 </FrameLayout>
