@@ -8,6 +8,6 @@ sealed class MoviesUiState : UiState {
 
     data class ShowMoviesUiState(val movies: Movies) : MoviesUiState()
 
-    object ErrorUiState : MoviesUiState()
+    data class ErrorUiState(val pageRetry: Int) : MoviesUiState()
 
 }

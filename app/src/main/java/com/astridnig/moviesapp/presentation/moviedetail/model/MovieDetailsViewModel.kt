@@ -23,6 +23,10 @@ class MovieDetailsViewModel(private val repository: MoviesRepository) : ViewMode
             is MovieDetailsUiEvent.InitialUiEvent -> {
                 getMovieDetail(movieId = uiEvent.movieId)
             }
+
+            is MovieDetailsUiEvent.RetryGetMovieDetailsUiEvent -> {
+                getMovieDetail(movieId = uiEvent.movieId)
+            }
         }
 
     }
@@ -37,7 +41,7 @@ class MovieDetailsViewModel(private val repository: MoviesRepository) : ViewMode
             }.onSuccess { movieDetails ->
                 uiState.update { MovieDetailsUiState.ShowMovieDetailsUiState(movieDetails = movieDetails) }
             }.onFailure {
-                uiState.update { MovieDetailsUiState.ErrorUiState }
+                uiState.update { MovieDetailsUiState.ErrorUiState(movieId = movieId) }
             }
         }
     }

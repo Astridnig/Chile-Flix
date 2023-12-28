@@ -60,12 +60,14 @@ class MovieDetailFragment : Fragment(), UiPresentation<MovieDetailsUiState> {
 
     override fun renderUiStates(uiState: MovieDetailsUiState) {
         when (uiState) {
-            MovieDetailsUiState.ErrorUiState -> {
+            is MovieDetailsUiState.ErrorUiState -> {
                 showLoading(visible = false)
+                showError(visible = true, movieId = uiState.movieId)
             }
 
             MovieDetailsUiState.LoadingUiState -> {
                 showLoading(visible = true)
+                showError(visible = false)
             }
 
             is MovieDetailsUiState.ShowMovieDetailsUiState -> {
@@ -90,6 +92,20 @@ class MovieDetailFragment : Fragment(), UiPresentation<MovieDetailsUiState> {
             binding?.progress?.isVisible = true
         } else {
             binding?.progress?.isGone = true
+        }
+    }
+
+    private fun showError(visible: Boolean, movieId: Int = 0) {
+        binding?.let {
+            if (visible) {
+                it.linearError.isVisible = true
+                it.buttonRetry.setOnClickListener {
+                    emitUiEvent(MovieDetailsUiEvent.RetryGetMovieDetailsUiEvent(movieId = movieId))
+
+                }
+            } else {
+                it.linearError.isGone = true
+            }
         }
     }
 

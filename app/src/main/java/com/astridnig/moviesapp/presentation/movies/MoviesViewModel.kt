@@ -24,6 +24,9 @@ class MoviesViewModel(private val repository: MoviesRepository) : ViewModel(),
             is MoviesUiEvent.GetMoviesUiEvent -> {
                 getMovies(page = uiEvent.page)
             }
+            is MoviesUiEvent.RetryGetMoviesUiEvent -> {
+                getMovies(page = uiEvent.page)
+            }
         }
 
     }
@@ -37,7 +40,7 @@ class MoviesViewModel(private val repository: MoviesRepository) : ViewModel(),
             }.onSuccess { movies ->
                 uiState.update { MoviesUiState.ShowMoviesUiState(movies = movies) }
             }.onFailure {
-                uiState.update { MoviesUiState.ErrorUiState }
+                uiState.update { MoviesUiState.ErrorUiState(pageRetry = page) }
             }
         }
     }
