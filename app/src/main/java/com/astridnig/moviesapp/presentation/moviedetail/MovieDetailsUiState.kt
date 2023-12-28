@@ -8,6 +8,6 @@ sealed class MovieDetailsUiState : UiState {
 
     data class ShowMovieDetailsUiState(val movieDetails: MovieDetails) : MovieDetailsUiState()
 
-    object ErrorUiState : MovieDetailsUiState()
+    data class  ErrorUiState(val movieId: Int) : MovieDetailsUiState()
 
 }
